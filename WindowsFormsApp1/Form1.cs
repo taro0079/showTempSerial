@@ -36,6 +36,8 @@ namespace WindowsFormsApp1
             // CoupleにJを追加
             comboBox3.Items.Add("J");
 
+            comboBox3.Items.Add("R");
+
             //  Select J as default
             if (comboBox3.Items.Count > 0)
             {
