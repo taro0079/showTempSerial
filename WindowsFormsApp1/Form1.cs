@@ -98,6 +98,7 @@ namespace WindowsFormsApp1
             
             if (serialPort1.IsOpen)
             {
+                // initialization of status of button
                 button2.Enabled = false;
                 button4.Enabled = true;
 
@@ -126,9 +127,11 @@ namespace WindowsFormsApp1
                     TimeSpan dt = nowTime - startTime;
                     double Dt = Convert.ToDouble(dt.TotalMinutes); // double に変換
                     double DT = Math.Round(Dt, 3); //四捨五入
-                    serialPort1.Write(":READ?" + "\n");
-                    string str = serialPort1.ReadLine();
-                    label4.Text = str;
+
+                    serialPort1.Write(":READ?" + "\n"); // data reading (device command)
+
+                    string str = serialPort1.ReadLine(); // read line from serial port
+                    label4.Text = str; 
                     label5.Text = Convert.ToString(DT);
                     double data = Convert.ToDouble(str);
 
@@ -139,14 +142,13 @@ namespace WindowsFormsApp1
                     chart1.Series["temp"].Points.AddXY(DT, data);
 
                     // csv ファイルへの書き込み
-                    
                     string filename = startTime.ToString("yyyy-MM-dd-hh-mm-ss")+ "data.csv";
                     StreamWriter file = new StreamWriter(filename, true, Encoding.UTF8);
                     file.WriteLine(nowTime + "," + data + ",");
                     file.Close();
 
                     
-
+                    // for multi task (2 second sleep)
                     await Task.Run(() =>
                     {
                         System.Threading.Thread.Sleep(2000);
