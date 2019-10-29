@@ -30,6 +30,18 @@ namespace WindowsFormsApp1
             // レートに9600を追加
             comboBox2.Items.Add(9600);
 
+            // CoupleにK熱電対を追加
+            comboBox3.Items.Add("K");
+
+            // CoupleにJを追加
+            comboBox3.Items.Add("J");
+
+            //  Select J as default
+            if (comboBox3.Items.Count > 0)
+            {
+                comboBox3.SelectedIndex = 0;
+            }
+
             // デフォルトで選択されるレートを決定
             if (comboBox2.Items.Count > 0)
             {
@@ -99,7 +111,7 @@ namespace WindowsFormsApp1
                 serialPort1.Write(":SENS:TEMP:TRAN TC" + "\n");
                 serialPort1.Write(":SENS:TEMP:RJUN:RSEL INTERNAL" + "\n");
                 serialPort1.Write(":SENS:TEMP:RJUN:SIM 0" + "\n");
-                serialPort1.Write(":SENS:TEMP:TC K" + "\n");
+                serialPort1.Write(":SENS:TEMP:TC " + comboBox3.Text + "\n");
 
                 
                 for (; ; ) // 無限ループ
@@ -167,5 +179,10 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+         //   label8.Text = ":SENS:TC " + comboBox3.Text;
+        //}
     }
 }
